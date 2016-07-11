@@ -30,14 +30,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xinma.base.datastore.enums.RewardStatus;
 import com.xinma.base.datastore.enums.UserCategory;
-import com.xinma.base.datastore.model.user.PromotionPointDetailRecord;
-import com.xinma.base.datastore.model.user.UserAccountDTO;
-import com.xinma.base.datastore.model.user.UserAwardDTO;
-import com.xinma.base.datastore.model.user.UserAwardRecord;
-import com.xinma.base.datastore.model.user.UserDTO;
-import com.xinma.base.datastore.model.user.UserMetadata;
-import com.xinma.base.datastore.model.user.UserTagRecord;
-import com.xinma.base.datastore.model.user.UserWallet;
+import com.xinma.base.datastore.oldmodel.user.PromotionPointDetailRecord;
+import com.xinma.base.datastore.oldmodel.user.UserAccountDTO;
+import com.xinma.base.datastore.oldmodel.user.UserAwardDTO;
+import com.xinma.base.datastore.oldmodel.user.UserAwardRecord;
+import com.xinma.base.datastore.oldmodel.user.UserDTO;
+import com.xinma.base.datastore.oldmodel.user.UserMetadata;
+import com.xinma.base.datastore.oldmodel.user.UserTagRecord;
+import com.xinma.base.datastore.oldmodel.user.UserWallet;
 import com.xinma.base.util.DateUtil;
 
 // TODO consider RewardStatus enum

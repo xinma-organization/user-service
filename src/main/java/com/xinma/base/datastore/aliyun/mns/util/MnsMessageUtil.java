@@ -3,7 +3,7 @@ package com.xinma.base.datastore.aliyun.mns.util;
 import com.aliyun.mns.client.CloudQueue;
 import com.aliyun.mns.client.MNSClient;
 import com.aliyun.mns.model.Message;
-import com.xinma.base.datastore.model.QueueMessageDTO;
+import com.xinma.base.datastore.oldmodel.QueueMessageDTO;
 import com.xinma.base.util.JacksonUtils;
 
 /**
