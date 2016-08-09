@@ -31,7 +31,15 @@ public class MessageException extends CustomException {
 		super(cause);
 	}
 
+	public MessageException(CustomError error, Object... params) {
+		super(error, params);
+	}
+
 	public MessageException(String message, CustomError error, Object... params) {
 		super(message, error, params);
+	}
+
+	public MessageException(Throwable cause, CustomError error, Object... params) {
+		super(cause, error, params);
 	}
 }

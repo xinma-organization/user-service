@@ -12,7 +12,11 @@ import com.xinma.base.core.error.CustomError;
  */
 public enum ObjectError implements CustomError {
 
-	Unknown("datastore-object-001", "unknown excption when access object storage.");
+	Unknown("datastore-object-001", "unknown excption when access object storage."),
+
+	CreateForderErr("datastore-object-002", "create folder error."),
+
+	IOExceptionErr("datastore-object-003", "IOException error when upload object.");
 
 	String value;
 

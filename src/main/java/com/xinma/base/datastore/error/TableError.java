@@ -16,11 +16,17 @@ public enum TableError implements CustomError {
 
 	NetWorkErr("datastore-table-002", "Network excption when access table storage."),
 
-	OtsClientErr("datastore-table-003", "OTSClient excption when access table storage."),
+	OTSClientExceptionErr("datastore-table-003", "OTSClient excption when access table storage."),
 
-	OTSErr("datastore-table-004", "OTSExcption when access table storage."),
+	OTSExceptionErr("datastore-table-004", "OTSExcption when access table storage."),
 
-	ReachRetryLimitErr("datastore-table-005", "reach ots retry limit error.");
+	OtsConditionCheckFailErr("datastore-table-005", "ots condition check fail error."),
+
+	ReachRetryLimitErr("datastore-table-006", "reach ots retry limit error."),
+
+	BatchWriteRowErr("datastore-table-007", "Ots BatchWriteRow error."),
+
+	JsonProcessingExceptionErr("datastore-table-008", "Ots operation JsonProcessingException error.");
 
 	String value;
 

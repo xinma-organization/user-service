@@ -34,4 +34,8 @@ public class TableException extends CustomException {
 	public TableException(CustomError error, Object... params) {
 		super(error, params);
 	}
+
+	public TableException(Throwable cause, CustomError error, Object... params) {
+		super(cause, error, params);
+	}
 }

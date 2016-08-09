@@ -31,7 +31,15 @@ public class ObjectException extends CustomException {
 		super(cause);
 	}
 
+	public ObjectException(CustomError error, Object... params) {
+		super(error, params);
+	}
+
 	public ObjectException(String message, CustomError error, Object... params) {
 		super(message, error, params);
+	}
+
+	public ObjectException(Throwable cause, CustomError error, Object... params) {
+		super(cause, error, params);
 	}
 }
