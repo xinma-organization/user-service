@@ -4,28 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.javatuples.KeyValue;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.aliyun.openservices.ots.OTSClient;
 import com.aliyun.openservices.ots.model.CapacityUnit;
 import com.aliyun.openservices.ots.model.PrimaryKeyType;
 
-public class OtsTableUtilsTest {
+public class OtsTableUtilsTest extends DataStoreBaseTest {
 
-	private OTSClient client = null;
-
-	@BeforeClass
-	public void init() {
-		String endpoint = "http://touyun-dev.cn-hangzhou.ots.aliyuncs.com";
-		String accessId = "jFGmMqmS8LZABfRB";
-		String accessKey = "PNnhx6TpPRdVbBE94xLGqX0zTrZrMM";
-		String instanceName = "tm-dev";
-
-		client = new OTSClient(endpoint, accessId, accessKey, instanceName);
-	}
-
-	@Test
+	@Test(enabled=false)
 	public void createTable() {
 
 		List<KeyValue<String, PrimaryKeyType>> primaryKeyList = new ArrayList<KeyValue<String, PrimaryKeyType>>();
@@ -35,10 +21,10 @@ public class OtsTableUtilsTest {
 
 		for (int i = 0; i < 16; i++) {
 			String tableName = "tagbase" + i;
-			OtsTableUtils.createTable(client, tableName, primaryKeyList, capacityUnit);
+			OtsTableUtils.createTable(otsClient, tableName, primaryKeyList, capacityUnit);
 
 			tableName = "tag" + i;
-			OtsTableUtils.createTable(client, tableName, primaryKeyList, capacityUnit);
+			OtsTableUtils.createTable(otsClient, tableName, primaryKeyList, capacityUnit);
 		}
 	}
 

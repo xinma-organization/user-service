@@ -6,6 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xinma.base.tag.CloudTag;
 
 /**
@@ -20,39 +21,49 @@ import com.xinma.base.tag.CloudTag;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TagBasicInfoEO {
 
+	@JsonProperty("m")
 	private CloudTag meta;
 
 	/**
 	 * 组织Id
 	 */
+	@JsonProperty("oi")
 	private Integer organizationId;
 
+	@JsonProperty("fi")
 	private Integer factoryId;
 
+	@JsonProperty("pi")
 	private Integer productId;
 
 	/**
 	 * 分销商ID
 	 */
+	@JsonProperty("di")
 	private Integer distributorId;
 
+	@JsonProperty("pt")
 	private Date produceTime;
 
 	/**
 	 * 生产地址
 	 */
+	@JsonProperty("pa")
 	private String produceAddress;
 
+	@JsonProperty("pb")
 	private String produceBatch;
 
 	/**
 	 * 父节点
 	 */
+	@JsonProperty("pn")
 	private Long parentNode;
 
 	/**
 	 * 子节点
 	 */
+	@JsonProperty("cn")
 	private Set<Long> childrenNode;
 
 	public CloudTag getMeta() {
