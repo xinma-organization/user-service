@@ -31,11 +31,11 @@ public class TableException extends CustomException {
 		super(cause);
 	}
 
-	public TableException(CustomError error, Object... params) {
+	public TableException(CustomError error, String... params) {
 		super(error, params);
 	}
 
-	public TableException(Throwable cause, CustomError error, Object... params) {
+	public TableException(Throwable cause, CustomError error, String... params) {
 		super(cause, error, params);
 	}
 }
