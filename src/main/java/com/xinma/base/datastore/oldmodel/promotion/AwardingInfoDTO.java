@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xinma.base.datastore.enums.EtraceUploadMessageType;
+import com.xinma.base.datastore.enums.PortalUploadMessageType;
 
 /**
  * 抽奖中奖信息的DTO定义
@@ -86,7 +86,7 @@ public class AwardingInfoDTO implements Serializable {
 	private String userDefineData;// 用户自定义属性
 
 	@JsonIgnore
-	private EtraceUploadMessageType uploadMessageType = EtraceUploadMessageType.AwardingInfoDTO;
+	private PortalUploadMessageType uploadMessageType = PortalUploadMessageType.AwardingInfoDTO;
 
 	public Date getAwardTime() {
 		return awardTime;
@@ -224,11 +224,11 @@ public class AwardingInfoDTO implements Serializable {
 		this.postCode = postCode;
 	}
 
-	public EtraceUploadMessageType getUploadMessageType() {
+	public PortalUploadMessageType getUploadMessageType() {
 		return uploadMessageType;
 	}
 
-	public void setUploadMessageType(EtraceUploadMessageType uploadMessageType) {
+	public void setUploadMessageType(PortalUploadMessageType uploadMessageType) {
 		this.uploadMessageType = uploadMessageType;
 	}
 

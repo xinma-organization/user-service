@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="677" started-at="2016-08-17T03:24:12Z" finished-at="2016-08-17T03:24:13Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="677" started-at="2016-08-17T03:24:12Z" finished-at="2016-08-17T03:24:13Z">
+      <class name="com.xinma.base.datastore.ext.table.TagTableServiceTest">
+        <test-method status="PASS" signature="init()[pri:0, instance:com.xinma.base.datastore.ext.table.TagTableServiceTest@3967e60c]" name="init" is-config="true" duration-ms="175" started-at="2016-08-17T11:24:12Z" finished-at="2016-08-17T11:24:13Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="getTagBasicInfo()[pri:0, instance:com.xinma.base.datastore.ext.table.TagTableServiceTest@3967e60c]" name="getTagBasicInfo" duration-ms="483" started-at="2016-08-17T11:24:13Z" finished-at="2016-08-17T11:24:13Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getTagBasicInfo -->
+      </class> <!-- com.xinma.base.datastore.ext.table.TagTableServiceTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

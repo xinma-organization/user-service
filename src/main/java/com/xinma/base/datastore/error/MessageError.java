@@ -30,7 +30,13 @@ public enum MessageError implements CustomError {
 			"failed to stop the scheduledExecutor in MessageServiceImpl Object."),
 
 	PoppedMsgNotDeleteErr("datastore-mnsmessage-008",
-			"popped message not deleted when the MessageServiceImpl Object destroyed.");
+			"popped message not deleted when the MessageServiceImpl Object destroyed."),
+
+	PoppedErrorMessageErr("datastore-mnsmessage-009", "popped message is errorMessage."),
+
+	ReachMaxDequeueCountErr("datastore-mnsmessage-010", "popped message is reach max dequeue count."),
+
+	DeleteQueueMessageErr("datastore-mnsmessage-011", "retry delete queue message error.");
 
 	String value;
 

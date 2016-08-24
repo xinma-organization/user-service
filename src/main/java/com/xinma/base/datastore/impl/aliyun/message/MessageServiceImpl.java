@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xinma.base.core.error.GeneralError;
 import com.xinma.base.datastore.error.MessageError;
 import com.xinma.base.datastore.exceptions.MessageException;
 import com.xinma.base.datastore.ext.message.MessageService;
@@ -49,6 +50,10 @@ public class MessageServiceImpl implements MessageService {
 	private Map<String, MnsPoppedMsgRecord> poppedMsgMap = new ConcurrentHashMap<String, MnsPoppedMsgRecord>();
 
 	private ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+
+	private static final int maxDequeueCount = 5;
+
+	private final QueueMessageTO defaultErrorMessage = new QueueMessageTO();
 
 	public MessageServiceImpl(MNSClient client) {
 		super();
@@ -139,6 +144,24 @@ public class MessageServiceImpl implements MessageService {
 			throws JsonParseException, JsonMappingException, IOException {
 		if (queueMessage == null) {
 			return null;
+		}
+
+		if (queueMessage.isErrorMessage()) {
+			logger.error(
+					"popped message is error message, error message detail is : "
+							+ queueMessage.getErrorMessageDetail(),
+					new MessageException(MessageError.PoppedErrorMessageErr));
+			queue.deleteMessage(queueMessage.getReceiptHandle());
+			return defaultErrorMessage;
+		}
+
+		if (queueMessage.getDequeueCount() >= maxDequeueCount) {
+			logger.error(
+					"popped message is reach max dequeue count, popped message is : "
+							+ queueMessage.getMessageBodyAsString(),
+					new MessageException(MessageError.ReachMaxDequeueCountErr));
+			queue.deleteMessage(queueMessage.getReceiptHandle());
+			return defaultErrorMessage;
 		}
 
 		QueueMessageTO message = mapper.readValue(queueMessage.getMessageBodyAsString(), QueueMessageTO.class);
@@ -244,65 +267,102 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public void deleteMessage(String queueName, String messageId) throws MessageException {
-		try {
-			MnsPoppedMsgRecord record = poppedMsgMap.get(messageId);
-			if (record == null) {
-				// throw msgId Invalid
+	public void deleteMessage(String queueName, String messageId) {
+		MnsPoppedMsgRecord record = poppedMsgMap.get(messageId);
+		if (record == null) {
+			// throw msgId Invalid
+			MessageException exception = new MessageException(MessageError.InvalidMessageIdErr);
+			logger.error("消息ID " + messageId + "不存在或者已过期。", exception);
+			return;
+		} else {
+			if (new Date().after(record.getNextVisibleTime())) {
 				MessageException exception = new MessageException(MessageError.InvalidMessageIdErr);
-				logger.error("消息ID " + messageId + "不存在或者已过期。", exception);
+				logger.error("消息ID " + messageId + "已过期。", exception);
+				poppedMsgMap.remove(messageId);
 				return;
-			} else {
-				if (new Date().after(record.getNextVisibleTime())) {
-					MessageException exception = new MessageException(MessageError.InvalidMessageIdErr);
-					logger.error("消息ID " + messageId + "已过期。", exception);
-					poppedMsgMap.remove(messageId);
-					return;
-				}
+			}
 
+		}
+
+		// 外网访问阿里云mns网络不好，所以需要循环重试删除消息
+		int retryCnt = 0;
+		do {
+			try {
 				CloudQueue queue = client.getQueueRef(queueName);
 				queue.deleteMessage(record.getReceiptHandle());
 				poppedMsgMap.remove(messageId);
+				return;
+
+			} catch (ClientException ce) {
+				logger.error("catch ClientException when delete mns message.",
+						new MessageException(ce, MessageError.ClientExceptionErr, ce.getErrorCode()));
+			} catch (ServiceException se) {
+				logger.error("catch ClientException when delete mns message.",
+						new MessageException(se, MessageError.ServiceException, se.getErrorCode()));
 			}
-		} catch (ClientException ce) {
-			throw new MessageException(ce, MessageError.ClientExceptionErr, ce.getErrorCode());
-		} catch (ServiceException se) {
-			throw new MessageException(se, MessageError.ServiceException, se.getErrorCode());
-		}
+
+			retryCnt++;
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				logger.error("Thread sleep exception when delete message.",
+						new MessageException(e, GeneralError.ThreadSleepInterruptedException));
+			}
+		} while (retryCnt <= 100);
+
+		throw new MessageException(MessageError.DeleteQueueMessageErr);
 	}
 
 	@Override
 	public void batchDeleteMessage(String queueName, List<String> messageIds) throws MessageException {
-		try {
-			List<String> receiptHandles = new ArrayList<String>();
-			for (String messageId : messageIds) {
-				MnsPoppedMsgRecord record = poppedMsgMap.get(messageId);
-				if (record == null) {
+		List<String> receiptHandles = new ArrayList<String>();
+		for (String messageId : messageIds) {
+			MnsPoppedMsgRecord record = poppedMsgMap.get(messageId);
+			if (record == null) {
+				MessageException exception = new MessageException(MessageError.InvalidMessageIdErr);
+				logger.error("消息ID " + messageId + "不存在或者已过期。", exception);
+			} else {
+				if (new Date().after(record.getNextVisibleTime())) {
 					MessageException exception = new MessageException(MessageError.InvalidMessageIdErr);
-					logger.error("消息ID " + messageId + "不存在或者已过期。", exception);
-				} else {
-					if (new Date().after(record.getNextVisibleTime())) {
-						MessageException exception = new MessageException(MessageError.InvalidMessageIdErr);
-						logger.error("消息ID " + messageId + "已过期。", exception);
-					}
-					receiptHandles.add(record.getReceiptHandle());
+					logger.error("消息ID " + messageId + "已过期。", exception);
 				}
+				receiptHandles.add(record.getReceiptHandle());
 			}
-
-			if (receiptHandles.size() > 0) {
-				CloudQueue queue = client.getQueueRef(queueName);
-				queue.batchDeleteMessage(receiptHandles);
-			}
-
-			// remove msgs record from map
-			for (String messageId : messageIds) {
-				poppedMsgMap.remove(messageId);
-			}
-		} catch (ClientException ce) {
-			throw new MessageException(ce, MessageError.ClientExceptionErr, ce.getErrorCode());
-		} catch (ServiceException se) {
-			throw new MessageException(se, MessageError.ServiceException, se.getErrorCode());
 		}
+
+		// 外网访问阿里云mns网络不好，所以需要循环重试删除消息
+		int retryCnt = 0;
+		do {
+			try {
+				if (receiptHandles.size() > 0) {
+					CloudQueue queue = client.getQueueRef(queueName);
+					queue.batchDeleteMessage(receiptHandles);
+				}
+
+				// remove msgs record from map
+				for (String messageId : messageIds) {
+					poppedMsgMap.remove(messageId);
+				}
+				return;
+
+			} catch (ClientException ce) {
+				logger.error("catch ClientException when delete mns message.",
+						new MessageException(ce, MessageError.ClientExceptionErr, ce.getErrorCode()));
+			} catch (ServiceException se) {
+				logger.error("catch ClientException when delete mns message.",
+						new MessageException(se, MessageError.ServiceException, se.getErrorCode()));
+			}
+
+			retryCnt++;
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				logger.error("Thread sleep exception when delete message.",
+						new MessageException(e, GeneralError.ThreadSleepInterruptedException));
+			}
+		} while (retryCnt <= 100);
+
+		throw new MessageException(MessageError.DeleteQueueMessageErr);
 	}
 
 	@Override

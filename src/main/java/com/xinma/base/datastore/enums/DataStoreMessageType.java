@@ -1,12 +1,12 @@
 package com.xinma.base.datastore.enums;
 
 /**
- * Etrace与其他系统通信的消息类型
+ * 消息通信的数据类型定义
  * 
- * @author zhangyongyi
+ * @author Alauda
  *
  */
-public interface EtraceMessageType {
+public interface DataStoreMessageType {
 	public Integer getValue();
 
 	public String getRemark();

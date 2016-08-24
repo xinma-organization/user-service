@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Etrace上传的消息类型
+ * portal服务发送消息类型
  * 
- * @author zhangyongyi
+ * @author Alauda
  *
  */
-public enum EtraceUploadMessageType implements EtraceMessageType {
+public enum PortalUploadMessageType implements DataStoreMessageType {
 	/**
 	 * 0:用户标签抽奖中兑奖信息
 	 */
@@ -24,7 +24,7 @@ public enum EtraceUploadMessageType implements EtraceMessageType {
 
 	String remark;
 
-	EtraceUploadMessageType(Integer value, String remark) {
+	PortalUploadMessageType(Integer value, String remark) {
 		this.value = value;
 		this.remark = remark;
 	}
@@ -39,7 +39,7 @@ public enum EtraceUploadMessageType implements EtraceMessageType {
 	}
 
 	@JsonCreator
-	public static EtraceUploadMessageType valueOf(int value) {
+	public static PortalUploadMessageType valueOf(int value) {
 		switch (value) {
 		case 0:
 			return AwardingInfoDTO;
