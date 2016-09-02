@@ -10,7 +10,7 @@ import java.util.Date;
  * @date Jul 23, 2016
  *
  */
-public class MnsPoppedMsgRecord {
+class MnsPoppedMsgRecord {
 
 	private String receiptHandle;
 

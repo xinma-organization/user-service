@@ -48,7 +48,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-Default_suite">
-                    <span>C:\Users\hocto_000\AppData\Local\Temp\testng-eclipse--947167353\testng-customsuite.xml</span>
+                    <span>C:\Users\hocto_000\AppData\Local\Temp\testng-eclipse--1989638606\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -101,7 +101,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.xinma.base.datastore.ext.table.TagTableServiceTest" hash-for-method="getTagBasicInfo">getTagBasicInfo</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.xinma.base.datastore.ext.message.MessageServiceTest" hash-for-method="popMessage">popMessage</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -119,14 +119,14 @@
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.xinma.base.datastore.ext.table.TagTableServiceTest</span>
+              <span class="class-name">com.xinma.base.datastore.ext.message.MessageServiceTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="getTagBasicInfo">
-                  </a> <!-- getTagBasicInfo -->
-                  <span class="method-name">getTagBasicInfo</span>
+                  <a name="popMessage">
+                  </a> <!-- popMessage -->
+                  <span class="method-name">popMessage</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -134,7 +134,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\hocto_000\AppData\Local\Temp\testng-eclipse--947167353\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\hocto_000\AppData\Local\Temp\testng-eclipse--1989638606\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -143,11 +143,11 @@
 &lt;suite name=&quot;Default suite&quot;&gt;
   &lt;test verbose=&quot;2&quot; name=&quot;Default test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.xinma.base.datastore.ext.table.TagTableServiceTest&quot;&gt;
+      &lt;class name=&quot;com.xinma.base.datastore.ext.message.MessageServiceTest&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;getTagBasicInfo&quot;/&gt;
+          &lt;include name=&quot;popMessage&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- com.xinma.base.datastore.ext.table.TagTableServiceTest --&gt;
+      &lt;/class&gt; &lt;!-- com.xinma.base.datastore.ext.message.MessageServiceTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -189,14 +189,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'getTagBasicInfo')
-data.setCell(0, 2, 'com.xinma.base.datastore.ext.table.TagTableServiceTest')
-data.setCell(0, 3, 483);
+data.setCell(0, 1, 'popMessage')
+data.setCell(0, 2, 'com.xinma.base.datastore.ext.message.MessageServiceTest')
+data.setCell(0, 3, 335);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 483 ms</span>
+              <span class="suite-total-time">Total running time: 335 ms</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -211,27 +211,19 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">8 ignored methods</span>
+            <span class="header-content">4 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">com.xinma.base.datastore.ext.table.TagTableServiceTest</span>
+              <span class="ignored-class-name">com.xinma.base.datastore.ext.message.MessageServiceTest</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">addTagAccessLog</span>
+                <span class="ignored-method-name">putMessage</span>
                 <br/>
-                <span class="ignored-method-name">getTagAwards</span>
+                <span class="ignored-method-name">deleteMessage</span>
                 <br/>
-                <span class="ignored-method-name">addTagAward</span>
+                <span class="ignored-method-name">batchPutMessage</span>
                 <br/>
-                <span class="ignored-method-name">getTagRow</span>
-                <br/>
-                <span class="ignored-method-name">getTagLotteryEnrolled</span>
-                <br/>
-                <span class="ignored-method-name">addLotteryEnrolled</span>
-                <br/>
-                <span class="ignored-method-name">putOrUpdateTagBasicInfo</span>
-                <br/>
-                <span class="ignored-method-name">getTagAccessLogs</span>
+                <span class="ignored-method-name">batchDeleteMessage</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -243,14 +235,10 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.xinma.base.datastore.ext.table.TagTableServiceTest</div> <!-- chronological-class-name -->
-              <div class="configuration-class before">
-                <span class="method-name">init</span>
-                <span class="method-start">0 ms</span>
-              </div> <!-- configuration-class before -->
+              <div class="chronological-class-name">com.xinma.base.datastore.ext.message.MessageServiceTest</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">getTagBasicInfo</span>
-                <span class="method-start">177 ms</span>
+                <span class="method-name">popMessage</span>
+                <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
