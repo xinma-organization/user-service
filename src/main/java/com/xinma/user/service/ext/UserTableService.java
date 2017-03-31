@@ -1,4 +1,4 @@
-package com.xinma.base.datastore.ext.table;
+package com.xinma.user.service.ext;
 
 /**
  * 用户表数据访问接口定义

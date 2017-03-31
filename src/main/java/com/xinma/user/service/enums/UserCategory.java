@@ -1,4 +1,4 @@
-package com.xinma.base.datastore.enums;
+package com.xinma.user.service.enums;
 
 public enum UserCategory {
 
